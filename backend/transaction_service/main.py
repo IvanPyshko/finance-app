@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import journal_routes, acct_routes, category_routes
+from routes import journal_routes, acct_routes, category_routes, comment_routes
 
 app = FastAPI()
 

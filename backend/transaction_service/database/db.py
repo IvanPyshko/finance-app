@@ -21,3 +21,9 @@ engine = create_engine(DATABASE_URL, connect_args={"options": "-csearch_path=pub
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

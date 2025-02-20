@@ -38,3 +38,12 @@ class JournalResponse(JournalBase):
 
     class Config:
         from_attributes = True
+        
+class CommentBase(BaseModel):
+    text: str  # Текст комментария (обязательное поле)
+
+class CommentResponse(CommentBase):
+    id: int  # ID комментария в БД
+
+    class Config:
+        from_attributes = True
