@@ -1,11 +1,12 @@
 from fastapi import FastAPI
-from database.db import engine, Base
+from routes import journal_routes, acct_routes, category_routes
 
 app = FastAPI()
 
-# Создаем таблицы в БД (позже заменим на Alembic)
-Base.metadata.create_all(bind=engine)
+app.include_router(journal_routes.router, prefix="/journal", tags=["journal"])
+app.include_router(acct_routes.router, prefix="/acct", tags=["accounts"])
+app.include_router(category_routes.router, prefix="/category", tags=["categories"])
 
 @app.get("/")
 def root():
-    return {"message": "Transaction Service is running"}
+    return {"message": "Accounting System is running"}
