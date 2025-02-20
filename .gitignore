@@ -1,2 +1,5 @@
 venv/
 backend/transaction_service/.env
+backend/transaction_service/alembic.ini
+backend/transaction_service/alembic/__pycache__
+backend/transaction_service/alembic/versions
