@@ -20,27 +20,32 @@ class CategoryResponse(CategoryBase):
     class Config:
         from_attributes = True
 
-class JournalBase(BaseModel):
+class JournalCreate(BaseModel):
     date: date
-    acct: int
+    acct_id: int
     dom_amount: float
     for_amount: float
     currency: str
     exch_rate: float
     category_id: int
-    comment_id: Optional[int] = None
+    #comment_id: int | None = None  # Можем передавать NULL при создании
 
-class JournalCreate(JournalBase):
-    pass
-
-class JournalResponse(JournalBase):
+class JournalResponse(BaseModel):
     id: int
+    date: date
+    acct_id: int
+    dom_amount: float
+    for_amount: float
+    currency: str
+    exch_rate: float
+    category_id: int
 
     class Config:
         from_attributes = True
         
 class CommentBase(BaseModel):
     text: str  # Текст комментария (обязательное поле)
+    #journal_id: int
 
 class CommentResponse(CommentBase):
     id: int  # ID комментария в БД

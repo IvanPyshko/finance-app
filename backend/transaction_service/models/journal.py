@@ -7,14 +7,17 @@ class Journal(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     date = Column(Date, nullable=False)
-    acct = Column(Integer, ForeignKey("acct.id"), nullable=False)
+    acct_id = Column(Integer, ForeignKey("acct.id"), nullable=False)
     dom_amount = Column(Float, nullable=False)
     for_amount = Column(Float, nullable=False)
     currency = Column(String(3), nullable=False)
     exch_rate = Column(Float, nullable=False)
     category_id = Column(Integer, ForeignKey("category.id"), nullable=False)
-    comment_id = Column(Integer, ForeignKey("comments.id"), nullable=True)
-
+   
+    # Связи с Acct и Category оставляем
     acct_rel = relationship("Acct", back_populates="journal_entries")
     category = relationship("Category", back_populates="journal_entries")
-    comment = relationship("Comment", back_populates="journal_entry", uselist=False)
+
+    # Убираем связь с Comment
+    # comment_id = Column(Integer, ForeignKey("comments.id"), nullable=True)
+    # comment = relationship("Comment", back_populates="journal_entry", uselist=False)

@@ -4,13 +4,24 @@ from models.acct import Acct
 from models.category import Category
 from models.comment import Comment
 from models.schemas import JournalCreate, AcctBase, CategoryBase, CommentBase
+from fastapi import HTTPException
 
-def create_journal_entry(db: Session, journal_data: JournalCreate):
-    db_entry = Journal(**journal_data.dict())
-    db.add(db_entry)
+def create_journal_entry(db: Session, journal_entry: JournalCreate):
+    new_entry = Journal(
+     date=journal_entry.date,
+     acct_id=journal_entry.acct_id,
+     dom_amount=journal_entry.dom_amount,
+     for_amount=journal_entry.for_amount,
+     currency=journal_entry.currency,
+     exch_rate=journal_entry.exch_rate,
+     category_id=journal_entry.category_id,
+    )
+        #comment_id=None  # Комментарий добавится позже
+
+    db.add(new_entry)
     db.commit()
-    db.refresh(db_entry)
-    return db_entry
+    db.refresh(new_entry)
+    return new_entry
 
 def create_acct(db: Session, acct_data: AcctBase):
     db_acct = Acct(**acct_data.dict())
@@ -27,6 +38,7 @@ def create_category(db: Session, category_data: CategoryBase):
     return db_category
 
 def create_comment(db: Session, comment: CommentBase):
+    # Создаем комментарий
     new_comment = Comment(text=comment.text)
     db.add(new_comment)
     db.commit()

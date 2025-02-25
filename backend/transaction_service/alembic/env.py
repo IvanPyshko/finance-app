@@ -9,8 +9,9 @@ from database.db import Base
 
 from models.acct import Acct
 from models.category import Category
-from models.comment import Comment
 from models.journal import Journal
+from models.comment import Comment
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
